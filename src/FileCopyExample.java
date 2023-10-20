@@ -2,22 +2,22 @@ import java.io.*;
 
 public class FileCopyExample {
     public static void main(String[] args) {
-        String sourceFilePath1 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Из чего копировать.txt";
-        String sourceFilePath2 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Из чего копировать 2";
-        String destinationFilePath1 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Куда копировать.txt";
-        String destinationFilePath2 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Куда копировать 2";
+        String NachFilePath1 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Из чего копировать.txt";
+        String NachFilePath2 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Из чего копировать 2";
+        String KonFilePath1 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Куда копировать.txt";
+        String KonFilePath2 = "C:\\Users\\79623\\IdeaProjects\\Sistem_copirovaniye\\Куда копировать 2";
 
         // Последовательное копирование файлов
         long startTime = System.currentTimeMillis();
-        posCopy(sourceFilePath1, destinationFilePath1);
-        posCopy(sourceFilePath2, destinationFilePath2);
+        posCopy(NachFilePath1, KonFilePath1);
+        posCopy(NachFilePath2, KonFilePath2);
         long endTime = System.currentTimeMillis();
         long sequentialTime = endTime - startTime;
 
         // Параллельное копирование файлов
         startTime = System.currentTimeMillis();
-        Thread thread1 = new Thread(() -> parallelCopy(sourceFilePath1, destinationFilePath1));
-        Thread thread2 = new Thread(() -> parallelCopy(sourceFilePath2, destinationFilePath2));
+        Thread thread1 = new Thread(() -> parallelCopy(NachFilePath1, KonFilePath1));
+        Thread thread2 = new Thread(() -> parallelCopy(NachFilePath2, KonFilePath2));
         thread1.start();
         thread2.start();
         try {
@@ -34,10 +34,10 @@ public class FileCopyExample {
     }
 
     // Метод для последовательного копирования файла
-    private static void posCopy(String sourceFilePath, String destinationFilePath) {
+    private static void posCopy(String NachFilePath, String KonFilePath) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(sourceFilePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilePath));
+            BufferedReader reader = new BufferedReader(new FileReader(NachFilePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(KonFilePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 writer.write(line);
@@ -51,10 +51,10 @@ public class FileCopyExample {
     }
 
     // Метод для параллельного копирования файла
-    private static void parallelCopy(String sourceFilePath, String destinationFilePath) {
+    private static void parallelCopy(String NachFilePath, String KonFilePath) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(sourceFilePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFilePath));
+            BufferedReader reader = new BufferedReader(new FileReader(NachFilePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(KonFilePath));
             String line;
             while ((line = reader.readLine()) != null) {
                 writer.write(line);
